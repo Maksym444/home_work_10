@@ -13,24 +13,25 @@ console.log(sum(333));
 console.log(sum(112)); 
 
 
-function createCounter (initialValue, counterStep) {
-  let count = initialValue;
-  createCounter.prototype.increment = function () {
-      return count +=counterStep;
-  }; 
-  createCounter.prototype.resetToInitialValue = function () {
-      return count = initialValue;
-  };
-}
+function createCount (init, step) {
+  let count = init;
+  let inside = function (){
+      return count +=step;
+    };
+    inside.reset = function(){
+      return count = init;
+    };
+ return inside;
+};
 
-let counter = new createCounter(100, 10);
+let count = createCount (300, 300);
 
-console.log(counter.increment());
-console.log(counter.increment());
-console.log(counter.increment());
-console.log(counter.increment());
-console.log(counter.resetToInitialValue());
-console.log(counter.increment());
-console.log(counter.increment());
-console.log(counter.increment());
-console.log(counter.increment());
+
+console.log(count());
+console.log(count());
+console.log(count());
+console.log(count.reset())
+console.log(count());
+console.log(count());
+console.log(count());
+
